@@ -3,8 +3,9 @@ from base.api import GeneralListApiView
 from products.serializers.product_serializers import ProductSerializer
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from users.authentication_missing import Authentication
 
-class ProductViewSet(viewsets.ModelViewSet):
+class ProductViewSet(Authentication,viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self, pk=None):
