@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'products',
     'base',
     'drf_yasg',
+    'rest_framework.authtoken',
 ]
 
 SWAGGER_SETTINGS = {
