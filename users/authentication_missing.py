@@ -6,7 +6,7 @@ from rest_framework.renderers import JSONRenderer
 
 class Authentication(object):
     user = None
-    user_token_expired = False
+    #user_token_expired = False
     def get_user(self, request):
         token = get_authorization_header(request).split()
         if token: 
@@ -16,11 +16,10 @@ class Authentication(object):
                 return None
             
             token_expire = ExpiringTokenAuthentication()
-            user, token, message, self.user_token_expired = token_expire.authenticate_credentials(token)
-            if user != None and token != None:
+            user= token_expire.authenticate_credentials(token)
+            if user != None:
                 self.user = user
                 return user
-            return message
             
         return None
 

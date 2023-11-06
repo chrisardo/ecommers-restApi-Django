@@ -42,7 +42,7 @@ class Login(ObtainAuthToken):
                     }, status= status.HTTP_201_CREATED)
                 else:
                     ''' Se comprueba si el token no ha expirado '''
-                    '''
+                    
                     all_sessions = Session.objects.filter(expire_date__gte= datetime.now())
                     if all_sessions.exists():
                         for session in all_sessions:
@@ -57,9 +57,8 @@ class Login(ObtainAuthToken):
                         'message': 'Inicio de sesion exitoso.',
                     }, status= status.HTTP_201_CREATED)
                     '''
-                    token.delete()
                     return Response({'error': 'Este usuario ya ha iniciado sesion.'}, status= status.HTTP_409_CONFLICT)
-                
+                    '''
 
             else:
                 return Response({'error': 'Este usuario no puede iniciar sesion.'}, status= status.HTTP_401_UNAUTHORIZED)
