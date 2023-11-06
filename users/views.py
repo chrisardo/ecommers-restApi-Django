@@ -7,13 +7,22 @@ from users.serializers import UserTokenSerializer
 from django.contrib.sessions.models import Session
 from datetime import datetime
 from rest_framework.views import APIView 
+from users.authentication_missing import Authentication
+
 # Create your views here.
-class UserToken(APIView):
+class UserToken(Authentication, APIView):
+    '''
+    validar token
+    '''
     def get(self, request, *args, **kwargs):
-        username = request.GET.get('username')
+        #username = request.GET.get('username')
         try:
-            user_token = Token.objects.get(user = UserTokenSerializer().Meta.model.objects.filter(username = username).first())
-            return Response({'token': user_token.key}, status= status.HTTP_200_OK)
+            user_token,_ = Token.objects.get_or_create(user = self.user)
+            user = UserTokenSerializer(self.user)
+            return Response({
+                'token': user_token.key,
+                'user': user.data
+                }, status= status.HTTP_200_OK)
         except:
             return Response({'error': 'No se ha encontrado un usuario con estas credenciales.'}, status= status.HTTP_400_BAD_REQUEST)
 

@@ -40,7 +40,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include('users.urls')),
     path('products/', include('products.routers')),
-    path('', Login.as_view(), name= 'login'),
+    path('login/', Login.as_view(), name= 'login'),
     path('logaut/', Logaut.as_view(), name='logaut'),
     path('refresh-token/', UserToken.as_view(), name= 'refresh-token'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout= 0), name= 'schema-json'),
