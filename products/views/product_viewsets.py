@@ -5,7 +5,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from users.authentication_missing import Authentication
 
-class ProductViewSet(Authentication,viewsets.ModelViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
     def get_queryset(self, pk=None):
@@ -14,6 +14,8 @@ class ProductViewSet(Authentication,viewsets.ModelViewSet):
         else:
             return self.serializer_class.Meta.model.objects.filter(id=pk, state=True).first()
     def list(self, request):
+        for key, value in request.__dict__.items():
+            print(key, '==' ,value)
         product_serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response(product_serializer.data, status=status.HTTP_200_OK)
 

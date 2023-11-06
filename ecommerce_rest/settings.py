@@ -55,6 +55,13 @@ SWAGGER_SETTINGS = {
 
 TOKEN_EXPIRED_AFTER_SECONDS = 900
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASES': [
+        'users.authentication_missing.Authentication',
+    ],
+}
+
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
